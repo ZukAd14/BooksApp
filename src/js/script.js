@@ -38,26 +38,31 @@
   
   function initAction(){
     
-    const clicker = document.querySelectorAll(select.itemBook.image);
-    for(let item of clicker){
-      item.addEventListener('dblclick', function(event){
-        event.preventDefault();
-        const bookId = item.getAttribute('data-id');
-
+    //const clicker = document.querySelectorAll(select.itemBook.image);
+    //for(let item of clicker){
+    const bookList = document.querySelector(select.booksPanel.booksList);
+    bookList.addEventListener('dblclick', function(event){
+      event.preventDefault();
+      if(event.target.offsetParent.classList.contains(select.itemBook.image)){
+        const bookHelper = document.querySelector(select.itemBook.image);
+        const bookId = bookHelper.getAttribute('data-id');
+        
         if(favoriteBooks.indexOf(bookId) == -1){
-          item.classList.add('favorite');
+          select.itemBook.image.classList.add('favorite');
           favoriteBooks.push(bookId);
         } else {
-          item.classList.remove('favorite');
+          select.itemBook.image.classList.remove('favorite');
           const arrayElementNumber = favoriteBooks.indexOf(bookId);
           favoriteBooks.splice(arrayElementNumber, 1);
         }
 
-
-        console.log('item', item);
+        
+        //console.log('item', item);
         console.log('favorite: ', favoriteBooks);
-      });
-    }
+      }
+      
+    });
+    //}
   }
   render();
   initAction();
